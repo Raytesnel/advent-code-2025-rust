@@ -1,38 +1,48 @@
-use env_logger;
 use std::fs;
 use std::time::Instant;
-
 mod assignments {
     pub mod ass_01;
 }
 
-fn main() {
-    let inputs = [(
-        "src/inputs/ass_01.txt",
-        vec![
-            assignments::ass_01::assigment_1_a,
-            assignments::ass_01::assigment_1_b,
-        ],
-    )];
+use axum::{routing::get, Router};
 
-    for (file_path, assignments) in inputs {
-        let contents = read_file(file_path);
+#[tokio::main]
+async fn main() {
+    let app = Router::new()
+        .route("/", get(|| async { "Hello, World!" }))
+        .route("/assignment_1a", get(assignment_1a_handler))
+        .route("/assignment_1b", get(assignment_1b_handler));
 
-        for (i, assignment) in assignments.iter().enumerate() {
-            let now = Instant::now();
-            let result = assignment(&contents);
-            let elapsed = now.elapsed();
-            println!(
-                "Result for {:<25} part-{:?}: {:<15} (Time elapsed: {:>8.2?}µs)",
-                file_path,
-                i + 1,
-                result,
-                elapsed.as_micros()
-            );
-        }
-    }
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
 
 fn read_file(input_path: &str) -> String {
     fs::read_to_string(input_path).expect("LogRocket: Should have been able to read the file{}")
+}
+
+async fn assignment_1a_handler() -> String {
+    let input = read_file("src/inputs/ass_01.txt");
+    let now = Instant::now();
+    let result = assignments::ass_01::assignment_1_a(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
+}
+
+async fn assignment_1b_handler() -> String {
+    let input = read_file("src/inputs/ass_01.txt");
+    let now = Instant::now();
+    let result = assignments::ass_01::assignment_1_b(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
 }

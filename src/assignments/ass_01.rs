@@ -91,21 +91,21 @@ mod tests {
 
         assert_eq!(parse_input(&input_string), converted_intput);
     }
-    #[test]
-    fn test_1a() {
+    #[tokio::test]
+    async fn test_1a() {
         let input_string: String = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82".to_string();
 
-        assert_eq!(assignment_1_a(&input_string), 3)
+        assert_eq!(assignment_1_a(&input_string).await, 3)
     }
 
-    #[test]
-    fn test_1b() {
+    #[tokio::test]
+    async fn test_1b() {
         let _ = env_logger::builder()
             .is_test(true) // makes logs visible during `cargo test`
             .filter_level(log::LevelFilter::Info)
             .try_init();
         let input_string: String = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82".to_string();
 
-        assert_eq!(assignment_1_b(&input_string), 6)
+        assert_eq!(assignment_1_b(&input_string).await, 6)
     }
 }

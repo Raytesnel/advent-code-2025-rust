@@ -46,3 +46,21 @@ async fn assignment_1b_handler() -> String {
         elapsed.as_micros()
     )
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[tokio::test]
+    async fn test_assignment_1_a() {
+        let input = read_file("src/inputs/ass_01.txt");
+        let expected = 1089;
+        assert_eq!(assignments::ass_01::assignment_1_a(&input).await, expected);
+    }
+
+    #[tokio::test]
+    async fn test_assignment_1_b() {
+        let input = read_file("src/inputs/ass_01.txt");
+        let expected = 6530;
+        assert_eq!(assignments::ass_01::assignment_1_b(&input).await, expected);
+    }
+}

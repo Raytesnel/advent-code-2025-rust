@@ -1,23 +1,23 @@
 use log::{debug, info};
+const START: i32 = 50;
+const LIMIT: i32 = 100;
 
-pub fn assigment_1_a(input_list: &String) -> i32 {
-    let mut number_moving = 50;
-    let upper_limit = 100;
+pub async fn assignment_1_a(input_list: &str) -> i32 {
+    let mut number = START;
     let mut counter = 0;
-    let list_items = parse_input(&input_list);
-    for item in list_items {
-        debug!("old number number:{}", number_moving,);
-        number_moving = (number_moving + item).rem_euclid(upper_limit);
-        debug!("new parsed number:{}", number_moving,);
-        if number_moving == 0 {
+    for item in parse_input(input_list) {
+        debug!("old number: {}", number);
+        number = (number + item).rem_euclid(LIMIT);
+        debug!("new number: {}", number);
+        if number == 0 {
             counter += 1;
-            info!("found one:{}", counter,);
+            debug!("found one: {}", counter);
         }
     }
     counter
 }
 
-pub fn assigment_1_b(input_list: &String) -> i32 {
+pub async fn assignment_1_b(input_list: &str) -> i32 {
     let mut number_moving = 50;
     let upper_limit = 100;
     let mut counter = 0;
@@ -61,20 +61,21 @@ pub fn assigment_1_b(input_list: &String) -> i32 {
             );
         }
     }
+
     counter
 }
 
-fn parse_input(input_list: &String) -> Vec<i32> {
+fn parse_input(input_list: &str) -> Vec<i32> {
     input_list
         .lines()
         .map(|item| {
             let (dir, num) = item.split_at(1);
-            let value: i32 = num.parse().unwrap();
+            let value: i32 = num.parse().expect("Invalid number");
 
-            if dir == "L" {
-                -value
-            } else {
-                value
+            match dir {
+                "L" => -value,
+                "R" => value,
+                _ => panic!("Invalid direction"),
             }
         })
         .collect()
@@ -94,17 +95,17 @@ mod tests {
     fn test_1a() {
         let input_string: String = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82".to_string();
 
-        assert_eq!(assigment_1_a(&input_string), 3)
+        assert_eq!(assignment_1_a(&input_string), 3)
     }
 
     #[test]
     fn test_1b() {
         let _ = env_logger::builder()
             .is_test(true) // makes logs visible during `cargo test`
-            .filter_level(log::LevelFilter::Debug)
+            .filter_level(log::LevelFilter::Info)
             .try_init();
-        let input_string: String = "L68\nL30\nR48\nL5\nR60\nL55\nL601\nL99\nR14\nL82".to_string();
+        let input_string: String = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82".to_string();
 
-        assert_eq!(assigment_1_b(&input_string), 6)
+        assert_eq!(assignment_1_b(&input_string), 6)
     }
 }

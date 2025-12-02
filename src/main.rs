@@ -2,16 +2,23 @@ use std::fs;
 use std::time::Instant;
 mod assignments {
     pub mod ass_01;
+    pub mod ass_02;
 }
 
 use axum::{routing::get, Router};
 
 #[tokio::main]
 async fn main() {
+    let _ = env_logger::builder()
+        .is_test(true) // makes logs visible during `cargo test`
+        .filter_level(log::LevelFilter::Debug)
+        .try_init();
     let app = Router::new()
         .route("/", get(|| async { "Hello, World!" }))
         .route("/assignment_1a", get(assignment_1a_handler))
-        .route("/assignment_1b", get(assignment_1b_handler));
+        .route("/assignment_1b", get(assignment_1b_handler))
+        .route("/assignment_2a", get(assignment_2a_handler))
+        .route("/assignment_2b", get(assignment_2b_handler));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     axum::serve(listener, app).await.unwrap();
@@ -47,6 +54,31 @@ async fn assignment_1b_handler() -> String {
     )
 }
 
+async fn assignment_2a_handler() -> String {
+    let input = read_file("src/inputs/ass_02.txt");
+    let now = Instant::now();
+    let result = assignments::ass_02::assignment_2_a(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
+}
+async fn assignment_2b_handler() -> String {
+    let input = read_file("src/inputs/ass_02.txt");
+    let now = Instant::now();
+    let result = assignments::ass_02::assignment_2_a(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -62,5 +94,20 @@ mod tests {
         let input = read_file("src/inputs/ass_01.txt");
         let expected = 6530;
         assert_eq!(assignments::ass_01::assignment_1_b(&input).await, expected);
+    }
+
+    #[tokio::test]
+    async fn test_assignment_2_a() {
+        let input = read_file("src/inputs/ass_02.txt");
+        let expected:i64 = 44487518055;
+        let result:i64 = assignments::ass_02::assignment_2_a(&input).await;
+        assert_eq!(result, expected);
+    }
+    #[tokio::test]
+    async fn test_assignment_2_b() {
+        let input = read_file("src/inputs/ass_02.txt");
+        let expected:i64 = 53481866137;
+        let result:i64 = assignments::ass_02::assignment_2_b(&input).await;
+        assert_eq!(result, expected);
     }
 }

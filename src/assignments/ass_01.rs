@@ -100,10 +100,6 @@ mod tests {
 
     #[tokio::test]
     async fn test_1b() {
-        let _ = env_logger::builder()
-            .is_test(true) // makes logs visible during `cargo test`
-            .filter_level(log::LevelFilter::Info)
-            .try_init();
         let input_string: String = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82".to_string();
 
         assert_eq!(assignment_1_b(&input_string).await, 6)

@@ -10,7 +10,7 @@ pub async fn assignment_2_a(text_input: &str) -> i64 {
         debug!("Start: {}, End: {}", start, end);
         list_of_numbers.push(find_doubles(start, end));
     }
-    let summed =  list_of_numbers.iter().flatten().sum();
+    let summed = list_of_numbers.iter().flatten().sum();
     info!("Summed: {:?}", summed);
     summed
 }
@@ -25,7 +25,7 @@ pub async fn assignment_2_b(text_input: &str) -> i64 {
         debug!("Start: {}, End: {}", start, end);
         list_of_numbers.push(find_doubles_2(start, end));
     }
-    let summed =  list_of_numbers.iter().flatten().sum();
+    let summed = list_of_numbers.iter().flatten().sum();
     info!("Summed: {:?}", summed);
     summed
 }
@@ -99,7 +99,7 @@ mod tests {
     async fn test_example() {
         let test_input = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
         assert_eq!(assignment_2_a(&test_input).await, 1227775554);
-    }    
+    }
     #[tokio::test]
     async fn test_example_2() {
         let test_input = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";

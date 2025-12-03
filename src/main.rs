@@ -3,6 +3,7 @@ use std::time::Instant;
 mod assignments {
     pub mod ass_01;
     pub mod ass_02;
+    pub mod ass_03;
 }
 use axum::Json;
 use axum::{routing::get, routing::post, Router};
@@ -128,6 +129,20 @@ mod tests {
         let input = read_file("src/inputs/ass_02.txt");
         let expected: i64 = 53481866137;
         let result: i64 = assignments::ass_02::assignment_2_b(&input).await;
+        assert_eq!(result, expected);
+    }    
+    #[tokio::test]
+    async fn test_assignment_3_a() {
+        let input = read_file("src/inputs/ass_03.txt");
+        let expected:u64 = 17301;
+        let result:u64 = assignments::ass_03::assignment_3_a(&input).await;
+        assert_eq!(result, expected);
+    }
+    #[tokio::test]
+    async fn test_assignment_3_b() {
+        let input = read_file("src/inputs/ass_03.txt");
+        let expected:u64 = 17301;
+        let result:u64 = assignments::ass_03::assignment_3_b(&input).await;
         assert_eq!(result, expected);
     }
 }

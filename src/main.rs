@@ -52,6 +52,8 @@ async fn main() {
         .route("/assignment_1b", get(assignment_1b_handler))
         .route("/assignment_2a", get(assignment_2a_handler))
         .route("/assignment_2b", get(assignment_2b_handler))
+        .route("/assignment_3a", get(assignment_3a_handler))
+        .route("/assignment_3b", get(assignment_3b_handler))
         .merge(SwaggerUi::new("/docs").url("/api-docs/openapi.json", ApiDoc::openapi()));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
@@ -91,6 +93,32 @@ async fn assignment_2b_handler() -> String {
     let input = read_file("src/inputs/ass_02.txt");
     let now = Instant::now();
     let result = assignments::ass_02::assignment_2_b(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
+}
+
+async fn assignment_3a_handler() -> String {
+    let input = read_file("src/inputs/ass_03.txt");
+    let now = Instant::now();
+    let result = assignments::ass_03::assignment_3_a(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
+}
+
+async fn assignment_3b_handler() -> String {
+    let input = read_file("src/inputs/ass_03.txt");
+    let now = Instant::now();
+    let result = assignments::ass_03::assignment_3_b(&input).await;
     let elapsed = now.elapsed();
 
     format!(

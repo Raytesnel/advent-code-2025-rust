@@ -56,6 +56,7 @@ async fn main() {
         .route("/assignment_3a", get(assignment_3a_handler))
         .route("/assignment_3b", get(assignment_3b_handler))
         .route("/assignment_4a", get(assignment_4a_handler))
+        .route("/assignment_4b", get(assignment_4b_handler))
         .merge(SwaggerUi::new("/docs").url("/api-docs/openapi.json", ApiDoc::openapi()));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
@@ -133,7 +134,20 @@ async fn assignment_3b_handler() -> String {
 async fn assignment_4a_handler() -> String {
     let input = read_file("src/inputs/ass_04.txt");
     let now = Instant::now();
-    let result = assignments::ass_03::assignment_3_b(&input).await;
+    let result = assignments::ass_04::assignment_4_a(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
+}
+
+async fn assignment_4b_handler() -> String {
+    let input = read_file("src/inputs/ass_04.txt");
+    let now = Instant::now();
+    let result = assignments::ass_04::assignment_4_b(&input).await;
     let elapsed = now.elapsed();
 
     format!(
@@ -191,8 +205,15 @@ mod tests {
     #[tokio::test]
     async fn test_assignment_4_a() {
         let input = read_file("src/inputs/ass_04.txt");
-        let expected: i64 = 17301;
+        let expected: i64 = 1449;
         let result: i64 = assignments::ass_04::assignment_4_a(&input).await;
+        assert_eq!(result, expected);
+    }
+    #[tokio::test]
+    async fn test_assignment_4_b() {
+        let input = read_file("src/inputs/ass_04.txt");
+        let expected: i64 = 8746;
+        let result: i64 = assignments::ass_04::assignment_4_b(&input).await;
         assert_eq!(result, expected);
     }
 }

@@ -4,6 +4,7 @@ mod assignments {
     pub mod ass_01;
     pub mod ass_02;
     pub mod ass_03;
+    pub mod ass_04;
 }
 use axum::Json;
 use axum::{routing::get, routing::post, Router};
@@ -54,6 +55,7 @@ async fn main() {
         .route("/assignment_2b", get(assignment_2b_handler))
         .route("/assignment_3a", get(assignment_3a_handler))
         .route("/assignment_3b", get(assignment_3b_handler))
+        .route("/assignment_4a", get(assignment_4a_handler))
         .merge(SwaggerUi::new("/docs").url("/api-docs/openapi.json", ApiDoc::openapi()));
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
@@ -128,6 +130,19 @@ async fn assignment_3b_handler() -> String {
     )
 }
 
+async fn assignment_4a_handler() -> String {
+    let input = read_file("src/inputs/ass_04.txt");
+    let now = Instant::now();
+    let result = assignments::ass_03::assignment_3_b(&input).await;
+    let elapsed = now.elapsed();
+
+    format!(
+        "Result: {} (Time elapsed: {}µs)",
+        result,
+        elapsed.as_micros()
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -158,19 +173,26 @@ mod tests {
         let expected: i64 = 53481866137;
         let result: i64 = assignments::ass_02::assignment_2_b(&input).await;
         assert_eq!(result, expected);
-    }    
+    }
     #[tokio::test]
     async fn test_assignment_3_a() {
         let input = read_file("src/inputs/ass_03.txt");
-        let expected:u64 = 17301;
-        let result:u64 = assignments::ass_03::assignment_3_a(&input).await;
+        let expected: u64 = 17301;
+        let result: u64 = assignments::ass_03::assignment_3_a(&input).await;
         assert_eq!(result, expected);
     }
     #[tokio::test]
     async fn test_assignment_3_b() {
         let input = read_file("src/inputs/ass_03.txt");
-        let expected:u64 = 17301;
-        let result:u64 = assignments::ass_03::assignment_3_b(&input).await;
+        let expected: u64 = 172162399742349;
+        let result: u64 = assignments::ass_03::assignment_3_b(&input).await;
+        assert_eq!(result, expected);
+    }
+    #[tokio::test]
+    async fn test_assignment_4_a() {
+        let input = read_file("src/inputs/ass_04.txt");
+        let expected: i64 = 17301;
+        let result: i64 = assignments::ass_04::assignment_4_a(&input).await;
         assert_eq!(result, expected);
     }
 }

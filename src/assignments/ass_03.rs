@@ -72,4 +72,16 @@ mod tests {
             818181911112111"#;
         assert_eq!(assignment_3_b(&input_number).await, 3121910778619);
     }
+    #[tokio::test]
+    async fn test_assignment_3_a() {
+        let input = read_file("src/inputs/ass_03.txt");
+        let expected: u64 = 17301;
+        let result: u64 = assignment_3_a(&input).await; assert_eq!(result, expected);
+    }
+    #[tokio::test]
+    async fn test_assignment_3_b() {
+        let input = read_file("src/inputs/ass_03.txt");
+        let expected: u64 = 172162399742349;
+        let result: u64 = assignment_3_b(&input).await; assert_eq!(result, expected);
+    }
 }

@@ -105,4 +105,16 @@ mod tests {
         let test_input = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
         assert_eq!(assignment_2_b(&test_input).await, 4174379265);
     }
+    #[tokio::test]
+    async fn test_assignment_2_a() {
+        let input = read_file("src/inputs/ass_02.txt");
+        let expected: i64 = 44487518055;
+        let result: i64 = assignment_2_a(&input).await; assert_eq!(result, expected);
+    }
+    #[tokio::test]
+    async fn test_assignment_2_b() {
+        let input = read_file("src/inputs/ass_02.txt");
+        let expected: i64 = 53481866137;
+        let result: i64 = assignment_2_b(&input).await; assert_eq!(result, expected);
+    }
 }

@@ -104,4 +104,18 @@ mod tests {
 
         assert_eq!(assignment_1_b(&input_string).await, 6)
     }
+    
+    #[tokio::test]
+    async fn test_assignment_1_a() {
+        let input = read_file("src/inputs/ass_01.txt");
+        let expected = 1089;
+        assert_eq!(assignment_1_a(&input).await, expected);
+    }
+
+    #[tokio::test]
+    async fn test_assignment_1_b() {
+        let input = read_file("src/inputs/ass_01.txt");
+        let expected = 6530;
+        assert_eq!(assignment_1_b(&input).await, expected);
+    }
 }

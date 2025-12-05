@@ -3,6 +3,7 @@ pub mod handler_day_2;
 pub mod handler_day_3;
 pub mod handler_day_4;
 pub mod handler_day_5;
+pub mod returns;
 
 pub use handler_day_1::assignment_1a_handler;
 pub use handler_day_2::assignment_2a_handler;
@@ -16,4 +17,4 @@ pub use handler_day_3::assignment_3b_handler;
 pub use handler_day_4::assignment_4b_handler;
 pub use handler_day_5::assignment_5b_handler;
 
-pub use handler_day_1::AssignmentResult;
+pub use returns::AssignmentResult;

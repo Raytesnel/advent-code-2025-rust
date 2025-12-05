@@ -1,3 +1,4 @@
+use crate::utils::read_file;
 use log::{debug, info};
 
 pub async fn assignment_2_a(text_input: &str) -> i64 {
@@ -109,12 +110,14 @@ mod tests {
     async fn test_assignment_2_a() {
         let input = read_file("src/inputs/ass_02.txt");
         let expected: i64 = 44487518055;
-        let result: i64 = assignment_2_a(&input).await; assert_eq!(result, expected);
+        let result: i64 = assignment_2_a(&input).await;
+        assert_eq!(result, expected);
     }
     #[tokio::test]
     async fn test_assignment_2_b() {
         let input = read_file("src/inputs/ass_02.txt");
         let expected: i64 = 53481866137;
-        let result: i64 = assignment_2_b(&input).await; assert_eq!(result, expected);
+        let result: i64 = assignment_2_b(&input).await;
+        assert_eq!(result, expected);
     }
 }

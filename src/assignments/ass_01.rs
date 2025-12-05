@@ -1,3 +1,4 @@
+use crate::utils::read_file;
 use log::{debug, info};
 const START: i32 = 50;
 const LIMIT: i32 = 100;
@@ -104,7 +105,7 @@ mod tests {
 
         assert_eq!(assignment_1_b(&input_string).await, 6)
     }
-    
+
     #[tokio::test]
     async fn test_assignment_1_a() {
         let input = read_file("src/inputs/ass_01.txt");

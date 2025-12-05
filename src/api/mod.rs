@@ -1,3 +1,3 @@
-// mod docs;
+mod docs;
 
-// pub use docs::ApiDoc;
+pub use docs::ApiDoc;

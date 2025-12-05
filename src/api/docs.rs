@@ -1,11 +1,10 @@
-// use utoipa::OpenApi;
+use utoipa::OpenApi;
 
-// use crate::handlers::AssignmentResult;
-// use crate::handlers::assignment_1a_handler;
+use crate::handlers::AssignmentResult;
 
-// #[derive(OpenApi)]
-// #[openapi(
-//     paths(assignment_1a_handler),
-//     components(schemas(AssignmentResult))
-// )]
-// pub struct ApiDoc;
+#[derive(OpenApi)]
+#[openapi(
+    paths(crate::handlers::handler_day_1::assignment_1a_handler),
+    components(schemas(AssignmentResult))
+)]
+pub struct ApiDoc;

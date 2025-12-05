@@ -1,12 +1,26 @@
+use crate::utils::read_file;
+
 pub async fn assignment_3_a(input_list: &str) -> u64 {
-    input_list.lines().into_iter().map(|line| find_biggest_number(line, 2)).collect::<Vec<u64>>().iter().sum()
+    input_list
+        .lines()
+        .into_iter()
+        .map(|line| find_biggest_number(line, 2))
+        .collect::<Vec<u64>>()
+        .iter()
+        .sum()
 }
 
 pub async fn assignment_3_b(input_list: &str) -> u64 {
-    input_list.lines().into_iter().map(|line| find_biggest_number(line, 12)).collect::<Vec<u64>>().iter().sum()
+    input_list
+        .lines()
+        .into_iter()
+        .map(|line| find_biggest_number(line, 12))
+        .collect::<Vec<u64>>()
+        .iter()
+        .sum()
 }
 
-pub fn find_biggest_number(input: &str, number_length:usize) -> u64 {
+pub fn find_biggest_number(input: &str, number_length: usize) -> u64 {
     if input.len() < number_length {
         return 0;
     }
@@ -38,7 +52,6 @@ pub fn find_biggest_number(input: &str, number_length:usize) -> u64 {
     result.into_iter().collect::<String>().parse().unwrap()
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -50,10 +63,10 @@ mod tests {
     }
     #[test]
     fn test_example_3b_single() {
-        let input_number= "818181911112111";
+        let input_number = "818181911112111";
         assert_eq!(find_biggest_number(&input_number, 12), 888911112111);
     }
-    
+
     #[tokio::test]
     async fn test_example_3a() {
         let input_number = r#"
@@ -62,7 +75,7 @@ mod tests {
             234234234234278
             818181911112111"#;
         assert_eq!(assignment_3_a(&input_number).await, 357);
-    }    
+    }
     #[tokio::test]
     async fn test_example_3b() {
         let input_number = r#"
@@ -76,12 +89,14 @@ mod tests {
     async fn test_assignment_3_a() {
         let input = read_file("src/inputs/ass_03.txt");
         let expected: u64 = 17301;
-        let result: u64 = assignment_3_a(&input).await; assert_eq!(result, expected);
+        let result: u64 = assignment_3_a(&input).await;
+        assert_eq!(result, expected);
     }
     #[tokio::test]
     async fn test_assignment_3_b() {
         let input = read_file("src/inputs/ass_03.txt");
         let expected: u64 = 172162399742349;
-        let result: u64 = assignment_3_b(&input).await; assert_eq!(result, expected);
+        let result: u64 = assignment_3_b(&input).await;
+        assert_eq!(result, expected);
     }
 }

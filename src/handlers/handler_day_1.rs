@@ -1,10 +1,9 @@
-use axum::Json;
-use std::time::Instant;
 use crate::assignments::{assignment_1_a, assignment_1_b};
 use crate::utils::read_file;
+use axum::Json;
 use serde::Serialize;
+use std::time::Instant;
 use utoipa::ToSchema;
-
 
 #[derive(Serialize, ToSchema)]
 pub struct AssignmentResult {
